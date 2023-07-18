@@ -2,7 +2,7 @@ const { Task } = require('../models');
 
 const resolvers = {
   Query: {
-    classes: async () => {
+    tasks: async () => {
       return await Task.find({});
     }
   }
