@@ -1,9 +1,9 @@
-const { Class } = require('../models');
-//edit when models more solid
+const { Task } = require('../models');
+
 const resolvers = {
   Query: {
     classes: async () => {
-      return await Class.find({});
+      return await Task.find({});
     }
   }
 };
