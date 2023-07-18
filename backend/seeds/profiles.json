@@ -1,1 +1,17 @@
-//add data, required for project to have data already available 
+[
+    {
+        "name": "Dylan",
+        "taskCount": "1",
+        "tasks": "monday to-do"
+    },
+    {
+        "name": "Chris",
+        "taskCount": "1",
+        "tasks": "Groceries"
+    },
+    {
+        "name": "Aubrey",
+        "taskCount": "1",
+        "tasks": "wednesday to-do"
+    }
+]

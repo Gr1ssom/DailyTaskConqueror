@@ -11,10 +11,6 @@ const profileSchema = new Schema(
     taskCount: {
       type: Number
     },
-    taskList: {
-      type: String,
-      required: true
-    },
     tasks: [
       {
         type: Schema.Types.ObjectId,
