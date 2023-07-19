@@ -2,7 +2,7 @@
   "name": "Daily-Task-Conqueror",
   "version": "1.0.0",
   "description": "Your project description",
-  "main": "server.js",
+  "main": "./backend/schemas/server.js",
   "scripts": {
     "start:dev": "concurrently \"cd backend && npm run server\" \"cd frontend && npm start\"",
     "start": "npm run build && node server.js",
