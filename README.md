@@ -1,4 +1,4 @@
-# DailyTaskConqueror# PWA-Text-Editor
+# DailyTaskConqueror
 ![App image](appimg.png)
 
 ![License Badge](https://shields.io/badge/license-MIT-blue)

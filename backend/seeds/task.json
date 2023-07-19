@@ -1,0 +1,20 @@
+[
+    {
+        "name": "monday to-do",
+        "contents": "Do laundry, meal prep, clean floors",
+        "letterCount": "28",
+        "profile": "Dylan"
+    },
+    {
+        "name": "Groceries",
+        "contents": "Apples, bananas, milk, cheese, bread",
+        "letterCount": "28",
+        "profile": "Chris"
+    },
+    {
+        "name": "wednesday to-do",
+        "contents": "Work, grocery store, night class",
+        "letterCount": "26",
+        "profile": "Aubrey"
+    }
+]

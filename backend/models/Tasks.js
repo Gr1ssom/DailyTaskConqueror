@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const taskSchema = new Schema(
+const tasksSchema = new Schema(
   {
     name: {
       type: String,
@@ -8,12 +8,8 @@ const taskSchema = new Schema(
       unique: true,
       trim: true
     },
-    contents: {
-      type: String,
-      required: true
-    },
     //optional!
-    letterCount: {
+    tasksCount: {
       type: Number,
       required: true
     },
@@ -24,6 +20,6 @@ const taskSchema = new Schema(
   }
 );
 
-const Task = model('Task', taskSchema);
+const Tasks = model('Tasks', tasksSchema);
 
-module.exports = Task;
+module.exports = Tasks;
