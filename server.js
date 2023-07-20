@@ -40,6 +40,15 @@ mongoose.connect(MONGODB_URI, {
   useCreateIndex: true,
 });
 
+const app = express();
+app.use(cors());
+
+// Define a custom route for the root endpoint
+app.get('/', (req, res) => {
+  res.send('Welcome to Daily Task Conqueror!');
+});
+
+// ...
 const resolvers = {
   Query: {
     tasks: async () => {

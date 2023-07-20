@@ -15,16 +15,15 @@
   "author": "Your Name",
   "license": "ISC",
   "dependencies": {
+    "apollo-server-express": "^3.2.1",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "if-env": "^1.0.4",
-    "apollo-server-express": "^3.2.1",
-    "mongoose": "^5.13.7",
-    "cors": "^2.8.5"
-   
+    "mongodb": "^5.7.0",
+    "mongoose": "^5.13.7"
   },
   "devDependencies": {
     "concurrently": "^5.2.0",
     "nodemon": "^2.0.4"
-    
   }
 }
