@@ -7,9 +7,14 @@ const profileSchema = new Schema(
       required: true,
       trim: true
     },
-    //optional!
-    taskCount: {
-      type: Number
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
     },
     tasks: [
       {
