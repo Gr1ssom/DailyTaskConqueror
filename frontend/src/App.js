@@ -1,36 +1,76 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import LoginForm from './components/LoginForm';
-import Home from './components/Home';
-import NoteEditor from './components/NoteEditor';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 
-const App = () => {
-  // Your authentication logic can be implemented here
-  const isAuthenticated = false; // Set this to true if the user is authenticated
+import { Provider } from 'react-redux';
+import store from './utils/store';
 
+import Home from './pages/Home';
+import Detail from './pages/Detail';
+import NoMatch from './pages/NoMatch';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+
+
+const httpLink = createHttpLink({
+  uri: '/graphql',
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('id_token');
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
+});
+
+function App() {
   return (
-    <Router>
-      <div>
-        {/* Common header, navigation, or layout components can be placed here */}
-        {/* For example, you can have a navigation bar or header that appears on all pages */}
-
-        <Switch>
-          <Route path="/login">
-            {isAuthenticated ? <Redirect to="/home" /> : <LoginForm />}
-          </Route>
-          <Route path="/home" component={isAuthenticated ? Home : LoginForm} />
-          <Route path="/note" component={isAuthenticated ? NoteEditor : LoginForm} />
-
-          {/* If no route matches, redirect to a 404 page */}
-          <Route path="*">
-            <h1>404 - Not Found</h1>
-          </Route>
-        </Switch>
-
-        {/* Common footer or other layout components can be placed here */}
-      </div>
-    </Router>
+    <ApolloProvider client={client}>
+      <Router>
+        <div>
+          <Provider store={store}>
+            <Nav />
+            <Routes>
+              <Route 
+                path="/" 
+                element={<Home />} 
+              />
+              <Route 
+                path="/login" 
+                element={<Login />} 
+              />
+              <Route 
+                path="/signup" 
+                element={<Signup />} 
+              />
+              <Route 
+                path="/tasks/:id" 
+                element={<Detail />} 
+              />
+              <Route 
+                path="*" 
+                element={<NoMatch />} 
+              />
+            </Routes>
+          </Provider>
+        </div>
+      </Router>
+    </ApolloProvider>
   );
-};
+}
 
 export default App;
