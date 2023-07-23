@@ -1,0 +1,30 @@
+{
+  "name": "Daily-Task-Conqueror",
+  "version": "1.0.0",
+  "description": "Your project description",
+  "main": "server.js",
+  "scripts": {
+    "start:dev": "concurrently \"cd backend && npm run server\" \"cd frontend && npm start\"",
+    "start": "npm run build && node backend/server.js",
+    "server": "cd backend && nodemon server.js",
+    "build": "cd frontend && npm run build",
+    "install": "cd backend && npm i && cd ../frontend && npm i",
+    "client": "cd frontend && npm start"
+  },
+  "keywords": [],
+  "author": "Your Name",
+  "license": "ISC",
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
+    "apollo-server-express": "^3.2.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "if-env": "^1.0.4",
+    "mongodb": "^5.7.0",
+    "mongoose": "^5.13.7"
+  },
+  "devDependencies": {
+    "concurrently": "^5.2.0",
+    "nodemon": "^2.0.4"
+  }
+}
