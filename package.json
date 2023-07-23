@@ -15,6 +15,7 @@
   "author": "Your Name",
   "license": "ISC",
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
     "apollo-server-express": "^3.2.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
