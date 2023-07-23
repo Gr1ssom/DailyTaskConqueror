@@ -1,11 +1,10 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-type Tasks {
+  type Tasks {
     _id: ID
     name: String
     taskCount: Int
-    # Add a queryable field to retrieve an array of Tasks objects
     tasks: [Tasks]
   }
 
@@ -14,11 +13,9 @@ type Tasks {
     name: String
     content: String
     letterCount: Int
-    # Add a queryable field to retrieve a single Profile object
     profile: Profile
   }
 
-  # Define what can be queried for each profile
   type Profile {
     _id: ID
     name: String
@@ -32,31 +29,10 @@ type Tasks {
   }
 
   type Mutation {
-    tasks: [Tasks]
-    task: [Task]
-    profiles: [Profile]
+    createTask(name: String!, content: String!): Task
+    updateTask(_id: ID!, name: String, content: String): Task
+    deleteTask(_id: ID!): Task
   }
 `;
 
 module.exports = typeDefs;
-
-// const typeDefs = gql`
-//  type Task {
-    _id: ID!
-    title: String!
-    description: String
-    dueDate: String
-    completed: Boolean!
-//  }
-
- // type Query {
-    tasks: [Task]
-    task(id: ID!): Task
- // }
-
- // type Mutation {
-//    createTask(title: String!, description: String, dueDate: String, completed: Boolean!): Task
- //   updateTask(id: ID!, title: String, description: String, dueDate: String, completed: Boolean): Task
- //   deleteTask(id: ID!): Task
- // }
-//`;

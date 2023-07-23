@@ -3,14 +3,14 @@ import { Link, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Tasks from '../components/Tasks';
+import Tasks from '../components/Task';
 import {
   REMOVE_FROM_TASKS,
   UPDATE_TASKS_QUANTITY,
   ADD_TO_TASKS,
   UPDATE_PROFILE,
 } from '../utils/actions';
-import { QUERY_PROFILE, QUERY_PROFILE } from '../utils/queries';
+import { QUERY_PROFILE } from '../utils/queries';
 import { idbPromise } from '../utils/helpers';
 import spinner from '../assets/spinner.gif';
 

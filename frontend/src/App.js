@@ -16,6 +16,7 @@ import Detail from './pages/Detail';
 import NoMatch from './pages/NoMatch';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Nav from './components/Nav/index';
 
 
 const httpLink = createHttpLink({

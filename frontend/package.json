@@ -1,26 +1,37 @@
 {
-    "name": "frontend",
-    "version": "1.0.0",
-    "description": "Your frontend application description",
-    "dependencies": {
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "Your frontend application description",
+  "dependencies": {
+      "@apollo/client": "^3.5.8",
+      "@stripe/stripe-js": "^1.54.1",
+      "graphql": "^15.7.2",
+      "jwt-decode": "^3.1.2",
       "react": "^17.0.2",
       "react-dom": "^17.0.2",
-      "react-scripts": "latest",
-      "@apollo/client": "^3.5.8",
-      "graphql": "^15.7.2"
-    },
-    "scripts": {
+      "react-redux": "^8.1.1",
+      "react-router-dom": "^6.14.2",
+      "react-scripts": "latest"
+  },
+  "scripts": {
       "start": "react-scripts start",
       "build": "react-scripts build",
       "test": "react-scripts test",
       "eject": "react-scripts eject"
-    },
-    "eslintConfig": {
+  },
+  "eslintConfig": {
       "extends": "react-app"
-    },
-    "browserslist": {
-      "production": [">0.2%", "not dead", "not op_mini all"],
-      "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
-    }
+  },
+  "browserslist": {
+      "production": [
+          ">0.2%",
+          "not dead",
+          "not op_mini all"
+      ],
+      "development": [
+          "last 1 chrome version",
+          "last 1 firefox version",
+          "last 1 safari version"
+      ]
   }
-  
+}

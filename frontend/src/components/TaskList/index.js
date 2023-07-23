@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import ProductItem from '../ProductItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { UPDATE_PRODUCTS } from '../../utils/actions';
 import { useQuery } from '@apollo/client';
 import { QUERY_PRODUCTS } from '../../utils/queries';
 import { idbPromise } from '../../utils/helpers';
 import spinner from '../../assets/spinner.gif';
+import ProductItem from '../ProductItem';
 
 function TaskList() {
   const dispatch = useDispatch();
