@@ -1,37 +1,36 @@
 # DailyTaskConqueror
-![App image](appimg.png)
+![App image](./frontend/src/assets/Landing.png)
+![App image](frontend/src/assets/Home.png)
 
 ![License Badge](https://shields.io/badge/license-MIT-blue)
 ## Table of Contents
-1. [Description](#description)
-2. [Installation](#installation)
-3. [Usage](#usage)
-4. [Contributing](#contributing)
-5. [Tests](#tests)
-6. [LIcense](#lIcense)
-7. [Questions](#questions)
+- [DailyTaskConqueror](#dailytaskconqueror)
+  - [Table of Contents](#table-of-contents)
+  - [Description](#description)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Contributing](#contributing)
+  - [License](#license)
+  - [Questions](#questions)
 
 ## Description
-This progressive web application uses MongoDB for the database, Webpack to bundle the front-end, Workbox for the service worker used to cache static assets, and Heroku for the deployement host. Users can install this application to use offline or access it online [HERE](https://NEWDEPLOYLINK.herokuapp.com/).
+This progressive web application uses MongoDB for the database, Webpack to bundle the front-end, Workbox for the service worker used to cache static assets, and Heroku for the deployment host. Users can install this application to use offline or access it online [HERE](https://NEWDEPLOYLINK.herokuapp.com/).
 
 ## Installation
 Pull down the repo from https://github.com/Gr1ssom/DailyTaskConqueror/
 
 ## Usage
-1.Go to the root directory of the project, DailyTaskConqueror.
-2.Enter npm install
-3. To start the servers, npm run start:dev
-4. Go to browser that opens and use app.
+1. Go to the root directory of the project, DailyTaskConqueror.
+2. Enter `npm install`
+3. To start the servers, run `npm run start:dev`
+4. Go to the browser that opens and use the app.
+
 
 ## Contributing
-fork, code, pull req.
-
-## Tests
-none
+Fork the repository, make your changes, and submit a pull request.
 
 ## License
-Checkout https://mit-license.org/ for this project license information.
+Checkout [MIT License](https://mit-license.org/) for this project's license information.
 
 ## Questions
-Checkout other projects [HERE](https://github.com/YOURGITHUB) on Github
-
+Visit our repo at https://github.com/Gr1ssom/DailyTaskConqueror and contact the contributors.

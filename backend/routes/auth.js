@@ -1,14 +1,14 @@
-import express from "express";
-import { isLoggedIn, login, logout, register } from "../controllers/auth";
+// import express from "express";
+// import { isLoggedIn, login, logout, register } from "../controllers/auth";
 
-const router = express.Router();
+// const router = express.Router();
 
-router.post("/login", login);
+// router.post("/login", login);
 
-router.post("/register", register);
+// router.post("/register", register);
 
-router.get("/logout", logout);
+// router.get("/logout", logout);
 
-router.get('/is_logged_in', isLoggedIn)
+// router.get('/is_logged_in', isLoggedIn)
 
-export default router;
+// // export default router;
