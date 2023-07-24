@@ -12,10 +12,10 @@ const Profile = () => {
 
   useEffect(() => {
     if (data) {
-      // You may want to dispatch the tasks data to your redux store
+      // Dispatch the tasks data to your redux store
       dispatch({ type: 'ADD_USER_TASKS', tasks: data.userTasks }); 
     }
-  }, [data]);
+  }, [data, dispatch]);  // <-- Modified this useEffect
 
   useEffect(() => {
     // Fetch the user's tasks when the component loads

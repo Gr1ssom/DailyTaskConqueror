@@ -6,7 +6,6 @@ import Tasks from '../components/Task';
 import {
   REMOVE_FROM_TASKS,
   UPDATE_TASKS_QUANTITY,
-  UPDATE_TASK_QUANTITY,
   ADD_TO_TASKS,
   UPDATE_PROFILE,
 } from '../utils/actions';

@@ -10,6 +10,20 @@ function Login(props) {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+
+    // Hardcoded credentials for testing
+    const hardcodedEmail = "testuser@test.com";
+    const hardcodedPass = "testpassword";
+
+    // Check for hardcoded credentials
+    if (formState.email === hardcodedEmail && formState.password === hardcodedPass) {
+      // Logic for successful login with hardcoded user (for example, set a mock token or redirect)
+      console.log("Logged in with hardcoded user");
+      // You can use your Auth.login method with a mock token or implement a redirect here.
+      return;
+    }
+
+    // Regular login if the provided credentials aren't the hardcoded ones
     try {
       const mutationResponse = await login({
         variables: { email: formState.email, password: formState.password },
@@ -32,7 +46,6 @@ function Login(props) {
   return (
     <div className="container my-1">
       <Link to="/signup">← Go to Signup</Link>
-
       <h2>Login</h2>
       <form onSubmit={handleFormSubmit}>
         <div className="flex-row space-between my-2">

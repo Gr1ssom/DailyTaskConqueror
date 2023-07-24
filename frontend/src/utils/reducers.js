@@ -4,7 +4,6 @@ import {
   REMOVE_FROM_TASKS,
   CLEAR_TASKS,
   TOGGLE_TASKS,
-  UPDATE_TASK_QUANTITY,
   UPDATE_TASKS_QUANTITY,
   UPDATE_CATEGORIES,
   UPDATE_CURRENT_CATEGORY,
@@ -64,6 +63,12 @@ const reducers = (state = initialState, action) => {
         currentCategory: action.currentCategory
       };
 
+    case CLEAR_TASKS:
+      return {
+         ...state,
+         tasks: []
+       };
+        
     case MARK_TASK_COMPLETE:  // 2. Handle the new action type
       return {
         ...state,

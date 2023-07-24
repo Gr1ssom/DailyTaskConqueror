@@ -13,9 +13,9 @@ const resolvers = {
         return [];
       }
     },
-    task: async (_, { id }) => {
+    task: async (_, { _id }) => { // Change here
       try {
-        const task = await Task.findById(id);
+        const task = await Task.findById(_id); // Change here
         return task;
       } catch (err) {
         console.error('Error fetching task by ID:', err);
@@ -34,10 +34,10 @@ const resolvers = {
         return null;
       }
     },
-    updateTask: async (_, { id, title, description, dueDate, completed }) => {
+    updateTask: async (_, { _id, title, description, dueDate, completed }) => { // Change here
       try {
         const updatedTask = await Task.findByIdAndUpdate(
-          id,
+          _id, // Change here
           { title, description, dueDate, completed },
           { new: true }
         );
@@ -47,9 +47,9 @@ const resolvers = {
         return null;
       }
     },
-    deleteTask: async (_, { id }) => {
+    deleteTask: async (_, { _id }) => { // Change here
       try {
-        const deletedTask = await Task.findByIdAndDelete(id);
+        const deletedTask = await Task.findByIdAndDelete(_id); // Change here
         return deletedTask;
       } catch (err) {
         console.error('Error deleting task:', err);

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { UPDATE_TASKS } from '../../utils/actions';
+import { UPDATE_TASKS, CLEAR_TASKS } from '../../utils/actions';
 import { useQuery } from '@apollo/client';
 import { QUERY_TASKS } from '../../utils/queries';
 import { idbPromise } from '../../utils/helpers';
@@ -32,6 +32,12 @@ function TaskList() {
     }
   }, [data, loading, dispatch]);
 
+  const handleClearTasks = () => {
+    dispatch({
+      type: CLEAR_TASKS
+    });
+  };
+
   return (
     <div className="my-2">
       <h2>Your Tasks:</h2>
@@ -47,6 +53,7 @@ function TaskList() {
               completed={task.completed}
             />
           ))}
+          <button onClick={handleClearTasks}>Clear All Tasks</button>
         </div>
       ) : (
         <h3>You haven't added any tasks yet!</h3>
