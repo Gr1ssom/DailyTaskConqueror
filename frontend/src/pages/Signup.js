@@ -23,12 +23,15 @@ const Signup = () => {
         variables: formData,
       });
 
-      // If the mutation is successful, you can access the token and profile data
-      const { token, profile } = data.addProfile;
-      console.log('Token:', token);
-      console.log('Profile ID:', profile._id);
-
-      // You can also save the token to local storage or a state management system for user authentication.
+      // Check if data and data.addProfile exist before destructuring
+      if (data && data.addProfile) {
+        const { token, profile } = data.addProfile;
+        console.log('Token:', token);
+        console.log('Profile ID:', profile._id);
+        // You can also save the token to local storage or a state management system for user authentication.
+      } else {
+        console.error('Unexpected response from addProfile mutation:', data);
+      }
     } catch (error) {
       console.error('Error creating profile:', error.message);
     }

@@ -81,11 +81,10 @@ const resolvers = {
       try {
         const profile = await Profile.create({ name, email, password });
         const token = signToken(profile);
-
         return { token, profile };
       } catch (err) {
-        console.error('Error creating profile:', err);
-        return null;
+        console.error('Detailed Error Information:', err); // Enhanced error logging
+        throw new Error('Error creating profile. Please check server logs for more details.'); // Descriptive error message
       }
     }
   },

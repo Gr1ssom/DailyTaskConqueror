@@ -15,6 +15,13 @@ app.use(express.json());
 // Use the cors middleware to enable CORS
 app.use(cors());
 
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true,
+};
+app.use(cors(corsOptions));
+
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
