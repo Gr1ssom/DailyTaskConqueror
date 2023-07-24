@@ -21,7 +21,7 @@ function Nav() {
       <h1>
         <Link to="/">
           <span role="img" aria-label="checklist icon">✅</span>
-          -TaskConqueror-
+         Daily Task Conqueror
         </Link>
       </h1>
 
@@ -30,7 +30,7 @@ function Nav() {
           <>
             <ul className="flex-row">
               <li className="mx-1">
-                <Link to="/taskHistory">Task History</Link>
+                <Link to="/home">Dashboard</Link>
               </li>
               <li className="mx-1">
                 <button onClick={handleLogout}>Logout</button>

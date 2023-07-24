@@ -23,18 +23,6 @@ function Home() {
       <h1>Welcome to Your Dashboard</h1>
       
       <div className="content">
-        {/* Task List */}
-        <div className="task-list-section">
-          <h2>Completed Tasks</h2>
-          <ul className="task-list">
-            {tasks.map((task, index) => (
-              <li className="task-item" key={index}>
-                {task} 
-                <button className="remove-task-button" onClick={() => handleRemoveTask(index)}>Remove</button>
-              </li>
-            ))}
-          </ul>
-        </div>
         
         {/* Task Creation Center */}
         <div className="task-creation-center">
@@ -47,6 +35,20 @@ function Home() {
           />
           <button className="add-task-button" onClick={handleAddTask}>Add Task</button>
         </div>
+
+        {/* Task List */}
+        <div className="task-list-section">
+          <h2>Task To Be Completed</h2>
+          <ul className="task-list">
+            {tasks.map((task, index) => (
+              <li className="task-item" key={index}>
+                {task} 
+                <button className="remove-task-button" onClick={() => handleRemoveTask(index)}>Remove</button>
+              </li>
+            ))}
+          </ul>
+        </div>
+        
       </div>
       
     </div>

@@ -7,8 +7,10 @@
 }
 
 h1 {
-    color: #5F9EA0;
+    color: #000000;
     margin-bottom: 20px;
+    text-align: center;
+    margin-top: 50px;
 }
 
 .content {

@@ -8,56 +8,50 @@ function Signup() {
   const navigate = useNavigate();
   
   const [formState, setFormState] = useState({ email: '', password: '', name: '' });
-  const [addProfile, { error }] = useMutation(ADD_PROFILE);
-  const [signupFeedback, setSignupFeedback] = useState('');
+  const [addProfile, { error: serverError }] = useMutation(ADD_PROFILE);
+  const [feedback, setFeedback] = useState('');
+
+  const { email, password, name } = formState;
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
     // Basic validation
-    if (!formState.email || !formState.password || !formState.name) {
-      setSignupFeedback('Please fill out all fields.');
+    if (!email || !password || !name) {
+      setFeedback('Please fill out all fields.');
       return;
     }
 
     try {
-      const mutationResponse = await addProfile({
-        variables: formState,
-      });
-
-      const token = mutationResponse.data.addProfile.token;
-      Auth.login(token);
-      navigate('/home'); // Redirect to home after successful signup
+      const { data } = await addProfile({ variables: formState });
+      Auth.login(data.addProfile.token);
+      navigate('/home');
     } catch (err) {
       console.error("Error signing up:", err);
-      setSignupFeedback('Error during signup. Please try again.');
+      setFeedback('Error during signup. Please try again.');
     }
   };
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormState({
-      ...formState,
-      [name]: value,
-    });
+  const handleChange = ({ target: { name, value } }) => {
+    setFormState(prev => ({ ...prev, [name]: value }));
   };
 
   return (
-    <div className="container my-1">
+    <main className="container my-1">
       <Link to="/login">← Go to Login</Link>
       <h2>Signup</h2>
       <form onSubmit={handleFormSubmit}>
-        <div className="flex-row space-between my-2">
+        <section className="flex-row space-between my-2">
           <label htmlFor="firstName">Name:</label>
           <input
-            placeholder="name"
+            placeholder="Your Name"
             name="name"
             type="text"
             id="firstName"
             onChange={handleChange}
           />
-        </div>
-        <div className="flex-row space-between my-2">
+        </section>
+        <section className="flex-row space-between my-2">
           <label htmlFor="email">Email:</label>
           <input
             placeholder="youremail@test.com"
@@ -66,8 +60,8 @@ function Signup() {
             id="email"
             onChange={handleChange}
           />
-        </div>
-        <div className="flex-row space-between my-2">
+        </section>
+        <section className="flex-row space-between my-2">
           <label htmlFor="pwd">Password:</label>
           <input
             placeholder="******"
@@ -76,14 +70,14 @@ function Signup() {
             id="pwd"
             onChange={handleChange}
           />
-        </div>
+        </section>
         <div className="flex-row flex-end">
           <button type="submit">Submit</button>
         </div>
       </form>
-      {signupFeedback && <p>{signupFeedback}</p>}
-      {error && <p>Error from server: {error.message}</p>}
-    </div>
+      {feedback && <p className="error-feedback">{feedback}</p>}
+      {serverError && <p className="server-error">Error from server: {serverError.message}</p>}
+    </main>
   );
 }
 

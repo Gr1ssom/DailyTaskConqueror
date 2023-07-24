@@ -1,26 +1,28 @@
 :root {
   --primary: #737373;
-  --secondary: #F3A847;
-  --tertiary: #000000;
+  --secondary: #b2b2b2; /* Adjusted for a softer grayscale contrast */
+  --tertiary: #2e2e2e; /* Slightly off-black for a softer touch */
   --light: #fafafa;
-  --dark: #272f32;
-  --error: rgb(228, 46, 1);
-  --spacing-one: calc(1rem * 0.5);
-  --spacing-two: calc(1rem);
+  --dark: #1a1a1a; /* Slightly darker for more emphasis */
+  --error: #e42e01;
+  --spacing-one: 8px;
+  --spacing-two: 16px;
+  --border-radius: 5px; /* New variable for rounded corners */
 }
 
 * {
   box-sizing: border-box;
+  margin: 0; 
+  padding: 0;
 }
 
 html,
 body {
-  min-height: 100%;
+  height: 100%;
+  background: var(--light); /* Adds a background color */
 }
 
 body {
-  margin: 0;
-  padding: 0;
   font-family: 'Karla', sans-serif;
   font-weight: 400;
   line-height: 1.5;
@@ -36,49 +38,41 @@ h5,
 h6 {
   font-family: 'Calibri', sans-serif;
   font-weight: 500;
-  margin: 5px 0;
   line-height: 1.25;
+  margin: var(--spacing-one) 0;
+  padding: var(--spacing-one);
+  background: var(--primary);
+  border: 1px solid var(--tertiary);
+  border-radius: var(--border-radius); /* Gives headings a blocky appearance */
 }
 
-h1 {
-  font-size: 2.25rem;
-}
-
-h2 {
-  font-size: 2rem;
-}
-
-h3 {
-  font-size: 1.75rem;
-}
-
-h4 {
-  font-size: 1.5rem;
-}
-
-h5 {
-  font-size: 1.25rem;
-}
-
-h6 {
-  font-size: 1rem;
-}
+h1 { font-size: 2.25rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1rem; }
 
 p {
   font-size: 1.1rem;
-  margin-top: 0;
+  padding: var(--spacing-one) 0;
+  margin-top: var(--spacing-one);
+  border-bottom: 1px solid var(--secondary);
 }
 
 a {
   color: var(--tertiary);
   text-decoration: none;
   font-weight: bold;
+  transition: color 0.3s ease; /* Smooth transition */
 }
 
 a:hover {
-  text-decoration: underline;
+  color: var(--primary); /* Adjusted to change color instead of underlining */
 }
 
 header {
   background: var(--primary);
+  padding: var(--spacing-two);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Adds subtle shadow for depth */
 }
