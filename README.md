@@ -1,5 +1,5 @@
 # DailyTaskConqueror
-![App image](appimg.png)
+![App image](dtc.png)
 
 ![License Badge](https://shields.io/badge/license-MIT-blue)
 ## Table of Contents
