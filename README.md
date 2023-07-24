@@ -1,5 +1,7 @@
 # DailyTaskConqueror
-![App image](appimg.png)
+![Landing](https://github.com/Gr1ssom/DailyTaskConqueror/assets/123666763/c86de4c8-f6b1-4f81-8751-ec4337a764da)
+
+![Home](https://github.com/Gr1ssom/DailyTaskConqueror/assets/123666763/54dc2a13-b670-4ac2-b31f-9341099e2578)
 
 ![License Badge](https://shields.io/badge/license-MIT-blue)
 ## Table of Contents
