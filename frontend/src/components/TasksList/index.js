@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import ProductItem from '../ProductItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { UPDATE_PRODUCTS } from '../../utils/actions';
+import { UPDATE_PROFILE } from '../../utils/actions';
 import { useQuery } from '@apollo/client';
-import { QUERY_PRODUCTS } from '../../utils/queries';
+import { QUERY_PROFILE } from '../../utils/queries';
 import { idbPromise } from '../../utils/helpers';
 import spinner from '../../assets/spinner.gif';
 
@@ -11,57 +11,56 @@ function TaskList() {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
 
-  const { currentCategory } = state;
+  const { currentProfile } = state;
 
-  const { loading, data } = useQuery(QUERY_PRODUCTS);
+  const { loading, data } = useQuery(QUERY_PROFILE);
 
   useEffect(() => {
     if (data) {
       dispatch({
-        type: UPDATE_PRODUCTS,
-        products: data.products,
+        type: UPDATE_PROFILE,
+        profiles: data.profile,
       });
-      data.products.forEach((product) => {
-        idbPromise('products', 'put', product);
+      data.profile.forEach((profile) => {
+        idbPromise('profile', 'put', profile);
       });
     } else if (!loading) {
-      idbPromise('products', 'get').then((products) => {
+      idbPromise('profile', 'get').then((profile) => {
         dispatch({
-          type: UPDATE_PRODUCTS,
-          products: products,
+          type: UPDATE_PROFILE,
+          profiles: profile,
         });
       });
     }
   }, [data, loading, dispatch]);
 
-  function filterProducts() {
-    if (!currentCategory) {
-      return state.products;
+  function filterProfile() {
+    if (!currentProfile) {
+      return state.profiles;
     }
 
-    return state.products.filter(
-      (product) => product.category._id === currentCategory
+    return state.profiles.filter(
+      (profile) => profile._id === currentProfile
     );
   }
 
   return (
     <div className="my-2">
-      <h2>Our Products:</h2>
-      {state.products.length ? (
+      <h2>Your Profile</h2>
+      {state.tasks.length ? (
         <div className="flex-row">
-          {filterProducts().map((product) => (
+          {filterProfile().map((profile) => (
             <ProductItem
-              key={product._id}
-              _id={product._id}
-              image={product.image}
-              name={product.name}
-              price={product.price}
-              quantity={product.quantity}
+              key={profile._id}
+              _id={profile._id}
+              //image={profile.image}
+              name={profile.name}
+              quantity={profile.quantity}
             />
           ))}
         </div>
       ) : (
-        <h3>You haven't added any products yet!</h3>
+        <h3>You haven't added any tasks yet!</h3>
       )}
       {loading ? <img src={spinner} alt="loading" /> : null}
     </div>
