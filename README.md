@@ -15,14 +15,13 @@
 This progressive web application uses MongoDB for the database, Webpack to bundle the front-end, Workbox for the service worker used to cache static assets, and Heroku for the deployement host. Users can install this application to use offline or access it online [HERE](https://NEWDEPLOYLINK.herokuapp.com/).
 
 ## Installation
-npm i 
+Pull down the repo from https://github.com/Gr1ssom/DailyTaskConqueror/
 
 ## Usage
-1.Go to the root directory of your project
-2.Enter npm run build to bundle front-end code
-3.Run the server, enter npm run start
-4.Go to localhost PORT
-5.CLick 'install' to install application or use live [HERE](https://NEWDEPLOYLINK.herokuapp.com/).
+1.Go to the root directory of the project, DailyTaskConqueror.
+2.Enter npm install
+3. To start the servers, npm run start:dev
+4. Go to browser that opens and use app.
 
 ## Contributing
 fork, code, pull req.
