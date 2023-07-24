@@ -1,84 +1,74 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
-import Auth from '../utils/auth';
 import { ADD_PROFILE } from '../utils/mutations';
 
-function Signup() {
-  const navigate = useNavigate();
-  
-  const [formState, setFormState] = useState({ email: '', password: '', name: '' });
-  const [addProfile, { error: serverError }] = useMutation(ADD_PROFILE);
-  const [feedback, setFeedback] = useState('');
+const Signup = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
 
-  const { email, password, name } = formState;
+  const [addProfile] = useMutation(ADD_PROFILE);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
-    // Basic validation
-    if (!email || !password || !name) {
-      setFeedback('Please fill out all fields.');
-      return;
-    }
-
     try {
-      const { data } = await addProfile({ variables: formState });
-      Auth.login(data.addProfile.token);
-      navigate('/home');
-    } catch (err) {
-      console.error("Error signing up:", err);
-      setFeedback('Error during signup. Please try again.');
-    }
-  };
+      const { data } = await addProfile({
+        variables: formData,
+      });
 
-  const handleChange = ({ target: { name, value } }) => {
-    setFormState(prev => ({ ...prev, [name]: value }));
+      // If the mutation is successful, you can access the token and profile data
+      const { token, profile } = data.addProfile;
+      console.log('Token:', token);
+      console.log('Profile ID:', profile._id);
+
+      // You can also save the token to local storage or a state management system for user authentication.
+    } catch (error) {
+      console.error('Error creating profile:', error.message);
+    }
   };
 
   return (
-    <main className="container my-1">
-      <Link to="/login">← Go to Login</Link>
-      <h2>Signup</h2>
-      <form onSubmit={handleFormSubmit}>
-        <section className="flex-row space-between my-2">
-          <label htmlFor="firstName">Name:</label>
-          <input
-            placeholder="Your Name"
-            name="name"
-            type="text"
-            id="firstName"
-            onChange={handleChange}
-          />
-        </section>
-        <section className="flex-row space-between my-2">
-          <label htmlFor="email">Email:</label>
-          <input
-            placeholder="youremail@test.com"
-            name="email"
-            type="email"
-            id="email"
-            onChange={handleChange}
-          />
-        </section>
-        <section className="flex-row space-between my-2">
-          <label htmlFor="pwd">Password:</label>
-          <input
-            placeholder="******"
-            name="password"
-            type="password"
-            id="pwd"
-            onChange={handleChange}
-          />
-        </section>
-        <div className="flex-row flex-end">
-          <button type="submit">Submit</button>
-        </div>
-      </form>
-      {feedback && <p className="error-feedback">{feedback}</p>}
-      {serverError && <p className="server-error">Error from server: {serverError.message}</p>}
-    </main>
+    <form onSubmit={handleFormSubmit}>
+      <div>
+        <label htmlFor="name">Name:</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value={formData.name}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div>
+        <label htmlFor="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={formData.email}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div>
+        <label htmlFor="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          value={formData.password}
+          onChange={handleInputChange}
+        />
+      </div>
+      <button type="submit">Sign Up</button>
+    </form>
   );
-}
+};
 
 export default Signup;

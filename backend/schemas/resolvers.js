@@ -1,6 +1,6 @@
 const { Task } = require('../models/Task');
-const { Profile } = require('../models/Profile');  // Assuming you have a Profile model for user data.
-const { signToken } = require('../utils/auth');  // Assuming you have a signToken utility.
+const { Profile } = require('../models/Profile');
+const { signToken } = require('../utils/auth');
 
 const resolvers = {
   Query: {
@@ -13,9 +13,9 @@ const resolvers = {
         return [];
       }
     },
-    task: async (_, { _id }) => { // Change here
+    task: async (_, { _id }) => {
       try {
-        const task = await Task.findById(_id); // Change here
+        const task = await Task.findById(_id);
         return task;
       } catch (err) {
         console.error('Error fetching task by ID:', err);
@@ -34,10 +34,10 @@ const resolvers = {
         return null;
       }
     },
-    updateTask: async (_, { _id, title, description, dueDate, completed }) => { // Change here
+    updateTask: async (_, { _id, title, description, dueDate, completed }) => {
       try {
         const updatedTask = await Task.findByIdAndUpdate(
-          _id, // Change here
+          _id,
           { title, description, dueDate, completed },
           { new: true }
         );
@@ -47,9 +47,9 @@ const resolvers = {
         return null;
       }
     },
-    deleteTask: async (_, { _id }) => { // Change here
+    deleteTask: async (_, { _id }) => {
       try {
-        const deletedTask = await Task.findByIdAndDelete(_id); // Change here
+        const deletedTask = await Task.findByIdAndDelete(_id);
         return deletedTask;
       } catch (err) {
         console.error('Error deleting task:', err);
@@ -57,7 +57,6 @@ const resolvers = {
       }
     },
 
-    // User Login
     login: async (_, { email, password }) => {
       try {
         const profile = await Profile.findOne({ email });
@@ -72,21 +71,18 @@ const resolvers = {
 
         const token = signToken(profile);
         return { token, profile };
-
       } catch (err) {
         console.error('Error logging in:', err);
         return null;
       }
     },
 
-    // User Registration
     addProfile: async (_, { name, email, password }) => {
       try {
         const profile = await Profile.create({ name, email, password });
         const token = signToken(profile);
 
         return { token, profile };
-
       } catch (err) {
         console.error('Error creating profile:', err);
         return null;
