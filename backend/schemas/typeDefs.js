@@ -19,8 +19,10 @@ const typeDefs = gql`
   type Profile {
     _id: ID
     name: String
+    email: String
     tasks: [Task]
   }
+  
 
   type Auth {
     token: String

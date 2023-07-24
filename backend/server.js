@@ -4,6 +4,7 @@ const { ApolloServer } = require('apollo-server-express');
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 const cors = require('cors'); // Import the cors middleware
+const { Profile } = require('./models/Profile'); // Import the Profile model
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -17,6 +18,7 @@ app.use(cors());
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context: () => ({ Profile }) // Pass the Profile model to the resolvers
 });
 
 const startApolloServer = async () => {

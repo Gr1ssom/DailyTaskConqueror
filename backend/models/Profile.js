@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const { Schema } = mongoose;
 const bcrypt = require('bcrypt');
 const Task = require('./Tasks');
@@ -29,7 +28,6 @@ const profileSchema = new Schema(
   }
 );
 
-// set up pre-save middleware to create password
 profileSchema.pre('save', async function(next) {
   if (this.isNew || this.isModified('password')) {
     const saltRounds = 10;
@@ -39,13 +37,10 @@ profileSchema.pre('save', async function(next) {
   next();
 });
 
-// compare the incoming password with the hashed password
 profileSchema.methods.isCorrectPassword = async function(password) {
   return await bcrypt.compare(password, this.password);
 };
 
 const Profile = mongoose.model('Profile', profileSchema);
 
-module.exports = Profile;
-
-module.exports = Profile;
+module.exports = Profile; 
