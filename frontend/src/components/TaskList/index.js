@@ -1,67 +1,55 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { UPDATE_PRODUCTS } from '../../utils/actions';
+import { UPDATE_TASKS } from '../../utils/actions';
 import { useQuery } from '@apollo/client';
-import { QUERY_PRODUCTS } from '../../utils/queries';
+import { QUERY_TASKS } from '../../utils/queries';
 import { idbPromise } from '../../utils/helpers';
 import spinner from '../../assets/spinner.gif';
-import ProductItem from '../ProductItem';
+import TaskItem from '../TaskItem/TaskItem';
 
 function TaskList() {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
 
-  const { currentCategory } = state;
-
-  const { loading, data } = useQuery(QUERY_PRODUCTS);
+  const { loading, data } = useQuery(QUERY_TASKS);
 
   useEffect(() => {
     if (data) {
       dispatch({
-        type: UPDATE_PRODUCTS,
-        products: data.products,
+        type: UPDATE_TASKS,
+        tasks: data.tasks,
       });
-      data.products.forEach((product) => {
-        idbPromise('products', 'put', product);
+      data.tasks.forEach((task) => {
+        idbPromise('tasks', 'put', task);
       });
     } else if (!loading) {
-      idbPromise('products', 'get').then((products) => {
+      idbPromise('tasks', 'get').then((tasks) => {
         dispatch({
-          type: UPDATE_PRODUCTS,
-          products: products,
+          type: UPDATE_TASKS,
+          tasks: tasks,
         });
       });
     }
   }, [data, loading, dispatch]);
 
-  function filterProducts() {
-    if (!currentCategory) {
-      return state.products;
-    }
-
-    return state.products.filter(
-      (product) => product.category._id === currentCategory
-    );
-  }
-
   return (
     <div className="my-2">
-      <h2>Our Products:</h2>
-      {state.products.length ? (
+      <h2>Your Tasks:</h2>
+      {state.tasks.length ? (
         <div className="flex-row">
-          {filterProducts().map((product) => (
-            <ProductItem
-              key={product._id}
-              _id={product._id}
-              image={product.image}
-              name={product.name}
-              price={product.price}
-              quantity={product.quantity}
+          {state.tasks.map((task) => (
+            <TaskItem
+              key={task._id}
+              _id={task._id}
+              title={task.title}
+              description={task.description}
+              dueDate={task.dueDate}
+              completed={task.completed}
             />
           ))}
         </div>
       ) : (
-        <h3>You haven't added any products yet!</h3>
+        <h3>You haven't added any tasks yet!</h3>
       )}
       {loading ? <img src={spinner} alt="loading" /> : null}
     </div>

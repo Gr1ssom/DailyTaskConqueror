@@ -44,7 +44,7 @@ export const QUERY_ALL_TASKS = gql`
 `;
 
 
-export const QUERY_USER = gql`
+export const QUERY_USER_TASKS = gql`
   {
     profile {
       name

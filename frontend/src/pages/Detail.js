@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { useDispatch, useSelector } from 'react-redux';
-
 import Tasks from '../components/Task';
 import {
   REMOVE_FROM_TASKS,
   UPDATE_TASKS_QUANTITY,
+  UPDATE_TASK_QUANTITY,
   ADD_TO_TASKS,
   UPDATE_PROFILE,
 } from '../utils/actions';

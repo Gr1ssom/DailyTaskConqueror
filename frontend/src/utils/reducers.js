@@ -1,22 +1,21 @@
 import {
   UPDATE_PROFILE,
   ADD_TO_TASKS,
-  UPDATE_TASKS_QUANTITY,
   REMOVE_FROM_TASKS,
   CLEAR_TASKS,
   TOGGLE_TASKS,
-  // Assuming these are your action types
-  ADD_MULTIPLE_TO_CART,
+  UPDATE_TASK_QUANTITY,
+  UPDATE_TASKS_QUANTITY,
   UPDATE_CATEGORIES,
-  UPDATE_CURRENT_CATEGORY
-} from "./actions";
+  UPDATE_CURRENT_CATEGORY,
+  MARK_TASK_COMPLETE   // 1. Import the new action type
+} from './actions';
 
 const initialState = {
-  products: [],
+  profiles: [],
   categories: [],
   currentCategory: '',
-  cart: [],
-  cartOpen: false
+  tasks: []
 };
 
 const reducers = (state = initialState, action) => {
@@ -24,57 +23,34 @@ const reducers = (state = initialState, action) => {
     case UPDATE_PROFILE:
       return {
         ...state,
-        products: [...action.products],
+        profiles: [...action.profiles],
       };
 
     case ADD_TO_TASKS:
       return {
         ...state,
-        cartOpen: true,
-        cart: [...state.cart, action.product],
-      };
-
-    case ADD_MULTIPLE_TO_CART:
-      return {
-        ...state,
-        cart: [...state.cart, ...action.products],
+        tasks: [...state.tasks, action.profile],
       };
 
     case UPDATE_TASKS_QUANTITY:
       return {
         ...state,
-        cartOpen: true,
-        cart: state.cart.map(product => {
-          if (action._id === product._id) {
-            product.purchaseQuantity = action.purchaseQuantity;
+        tasks: state.tasks.map(task => {
+          if (action._id === task._id) {
+            task.purchaseQuantity = action.purchaseQuantity;
           }
-          return product;
+          return task;
         })
       };
 
     case REMOVE_FROM_TASKS:
-      let newState = state.cart.filter(product => {
-        return product._id !== action._id;
-      });
-
       return {
         ...state,
-        cartOpen: newState.length > 0,
-        cart: newState
-      };
-
-    case CLEAR_TASKS:
-      return {
-        ...state,
-        cartOpen: false,
-        cart: []
+        tasks: state.tasks.filter(task => task._id !== action._id)
       };
 
     case TOGGLE_TASKS:
-      return {
-        ...state,
-        cartOpen: !state.cartOpen
-      };
+      return state;   // If there's no specific behavior you want for this action, you can remove it.
 
     case UPDATE_CATEGORIES:
       return {
@@ -86,6 +62,20 @@ const reducers = (state = initialState, action) => {
       return {
         ...state,
         currentCategory: action.currentCategory
+      };
+
+    case MARK_TASK_COMPLETE:  // 2. Handle the new action type
+      return {
+        ...state,
+        tasks: state.tasks.map(task => {
+          if (task._id === action.payload) {
+            return {
+              ...task,
+              completed: true
+            };
+          }
+          return task;
+        })
       };
 
     default:

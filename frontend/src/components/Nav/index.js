@@ -14,8 +14,8 @@ function Nav() {
     <header className="flex-row px-1">
       <h1>
         <Link to="/">
-          <span role="img" aria-label="shopping bag icon">🛍️</span>
-          -Shop-Shop
+          <span role="img" aria-label="checklist icon">✅</span>
+          -TaskConqueror-
         </Link>
       </h1>
 
@@ -24,7 +24,7 @@ function Nav() {
           <>
             <ul className="flex-row">
               <li className="mx-1">
-                <Link to="/orderHistory">Order History</Link>
+                <Link to="/taskHistory">Task History</Link>
               </li>
               <li className="mx-1">
                 <button onClick={handleLogout}>Logout</button>

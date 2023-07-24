@@ -1,108 +1,48 @@
 import React, { useEffect } from 'react';
-import { loadStripe } from '@stripe/stripe-js';
 import { useLazyQuery } from '@apollo/client';
-import { QUERY_CHECKOUT } from '../../utils/queries';
-import { idbPromise } from '../../utils/helpers';
+import { QUERY_USER_TASKS } from '../../utils/queries';  // Assume you have this query
 import Auth from '../../utils/auth';
 import { useDispatch, useSelector } from 'react-redux';
-import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from '../../utils/actions';
-import CartItem from '../cartItem';
+import TaskItem from '../TaskItem/TaskItem';
 
-const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
-
-const Cart = () => {
+const Profile = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
-  const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
+  const [getUserTasks, { data }] = useLazyQuery(QUERY_USER_TASKS);
 
   useEffect(() => {
     if (data) {
-      stripePromise.then((res) => {
-        res.redirectToCheckout({ sessionId: data.checkout.session });
-      });
+      // You may want to dispatch the tasks data to your redux store
+      dispatch({ type: 'ADD_USER_TASKS', tasks: data.userTasks }); 
     }
   }, [data]);
 
   useEffect(() => {
-    async function getCart() {
-      const cart = await idbPromise('cart', 'get');
-      dispatch({ type: ADD_MULTIPLE_TO_CART, products: [...cart] });
+    // Fetch the user's tasks when the component loads
+    if (Auth.loggedIn()) {
+      getUserTasks();
     }
-
-    if (!state.cart.length) {
-      getCart();
-    }
-  }, [state.cart.length, dispatch]);
-
-  function toggleCart() {
-    dispatch({ type: TOGGLE_CART });
-  }
-
-  function calculateTotal() {
-    let sum = 0;
-    state.cart.forEach((item) => {
-      sum += item.price * item.purchaseQuantity;
-    });
-    return sum.toFixed(2);
-  }
-
-  function submitCheckout() {
-    const productIds = [];
-
-    state.cart.forEach((item) => {
-      for (let i = 0; i < item.purchaseQuantity; i++) {
-        productIds.push(item._id);
-      }
-    });
-
-    getCheckout({
-      variables: { products: productIds },
-    });
-  }
-
-  if (!state.cartOpen) {
-    return (
-      <div className="cart-closed" onClick={toggleCart}>
-        <span role="img" aria-label="trash">
-          🛒
-        </span>
-      </div>
-    );
-  }
+  }, [dispatch, getUserTasks]);
 
   return (
-    <div className="cart">
-      <div className="close" onClick={toggleCart}>
-        [close]
-      </div>
-      <h2>Shopping Cart</h2>
-      {state.cart.length ? (
+    <div className="profile">
+      <h2>Your Tasks</h2>
+      {state.tasks && state.tasks.length ? (
         <div>
-          {state.cart.map((item) => (
-            <CartItem key={item._id} item={item} />
+          {state.tasks.map((task) => (
+            <TaskItem key={task._id} task={task} />
           ))}
-
-          <div className="flex-row space-between">
-            <strong>Total: ${calculateTotal()}</strong>
-
-            {Auth.loggedIn() ? (
-              <button onClick={submitCheckout}>Checkout</button>
-            ) : (
-              <span>(log in to check out)</span>
-            )}
-          </div>
         </div>
       ) : (
         <h3>
-          <span role="img" aria-label="shocked">
-            😱
+          <span role="img" aria-label="thinking">
+            🤔
           </span>
-          You haven't added anything to your cart yet!
+          You don't have any tasks yet!
         </h3>
       )}
     </div>
   );
 };
 
-export default Cart;
-
+export default Profile;
