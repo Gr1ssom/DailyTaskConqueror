@@ -1,7 +1,7 @@
 :root {
-  --primary: #232F3E;
+  --primary: #737373;
   --secondary: #F3A847;
-  --tertiary: #B12704;
+  --tertiary: #000000;
   --light: #fafafa;
   --dark: #272f32;
   --error: rgb(228, 46, 1);
@@ -34,7 +34,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Rubik', sans-serif;
+  font-family: 'Calibri', sans-serif;
   font-weight: 500;
   margin: 5px 0;
   line-height: 1.25;

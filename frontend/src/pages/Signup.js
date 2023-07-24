@@ -1,24 +1,37 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
 import { ADD_PROFILE } from '../utils/mutations';
 
-function Signup(props) {
+function Signup() {
+  const navigate = useNavigate();
+  
   const [formState, setFormState] = useState({ email: '', password: '', name: '' });
-  const [addProfile] = useMutation(ADD_PROFILE);
+  const [addProfile, { error }] = useMutation(ADD_PROFILE);
+  const [signupFeedback, setSignupFeedback] = useState('');
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    const mutationResponse = await addProfile({
-      variables: {
-        email: formState.email,
-        password: formState.password,
-        name: formState.name,
-      },
-    });
-    const token = mutationResponse.data.addProfile.token;
-    Auth.login(token);
+
+    // Basic validation
+    if (!formState.email || !formState.password || !formState.name) {
+      setSignupFeedback('Please fill out all fields.');
+      return;
+    }
+
+    try {
+      const mutationResponse = await addProfile({
+        variables: formState,
+      });
+
+      const token = mutationResponse.data.addProfile.token;
+      Auth.login(token);
+      navigate('/home'); // Redirect to home after successful signup
+    } catch (err) {
+      console.error("Error signing up:", err);
+      setSignupFeedback('Error during signup. Please try again.');
+    }
   };
 
   const handleChange = (event) => {
@@ -68,6 +81,8 @@ function Signup(props) {
           <button type="submit">Submit</button>
         </div>
       </form>
+      {signupFeedback && <p>{signupFeedback}</p>}
+      {error && <p>Error from server: {error.message}</p>}
     </div>
   );
 }

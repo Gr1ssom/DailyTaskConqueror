@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react'; // Import useEffect
 import Auth from '../../utils/auth';
 import { Link, useNavigate } from 'react-router-dom';
 
 function Nav() {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (Auth.loggedIn()) {
+      navigate('/home');
+    }
+  }, [navigate]);
 
   const handleLogout = () => {
     Auth.logout();

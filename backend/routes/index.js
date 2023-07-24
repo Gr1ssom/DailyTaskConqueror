@@ -10,7 +10,7 @@ const router = express.Router();
 router.use('/auth', authRoutes);
 router.use('/profiles', checkAuth, profileRoutes);
 router.use('/tasks', checkAuth, tasksRoutes);
-router.use('/', Login);
+router.use('/', '../../frontend/src/pages/Home.js');
 
 
 export default router;

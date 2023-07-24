@@ -1,4 +1,6 @@
 import React from 'react';
+import { Provider } from 'react-redux'; // Import the Redux Provider
+import store from './utils/store'; // adjust the path to your Redux store
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {
   ApolloClient,
@@ -7,10 +9,7 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { Provider } from 'react-redux';
-import store from './utils/store';
 
-// Importing the middleware
 import { authenticationMiddleware, errorMiddleware } from './middleware';
 
 import Home from './pages/Home';
@@ -19,7 +18,7 @@ import NoMatch from './pages/NoMatch';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Nav from './components/Nav/index';
-import LandingPage from './pages/LandingPage'; // Assuming you've created this
+import LandingPage from './pages/LandingPage';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -33,7 +32,7 @@ const authLink = setContext((_, { headers }) => {
       authorization: token ? `Bearer ${token}` : '',
     },
   };
-}).concat(authenticationMiddleware, errorMiddleware); // Chain the middleware
+}).concat(authenticationMiddleware, errorMiddleware);
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
@@ -43,9 +42,9 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Router>
-        <div>
-          <Provider store={store}>
+      <Provider store={store}> {/* Wrap with Redux Provider */}
+        <Router>
+          <div>
             <Nav />
             <Routes>
               <Route path="/" element={<LandingPage />} />
@@ -55,9 +54,9 @@ function App() {
               <Route path="/tasks/:id" element={<Detail />} />
               <Route path="*" element={<NoMatch />} />
             </Routes>
-          </Provider>
-        </div>
-      </Router>
+          </div>
+        </Router>
+      </Provider>
     </ApolloProvider>
   );
 }
