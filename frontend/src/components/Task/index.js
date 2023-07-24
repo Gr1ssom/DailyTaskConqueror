@@ -1,21 +1,14 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux'; // Add the missing import
 import { Link } from 'react-router-dom';
-import {
-  REMOVE_FROM_TASKS,
-  UPDATE_TASKS_STATUS,
-} from '../../utils/actions';
+import { markTaskComplete, removeTask } from '../../utils/actions';
 import { idbPromise } from '../../utils/helpers';
 
 const Task = ({ task }) => {
   const dispatch = useDispatch();
 
   const markAsComplete = () => {
-    dispatch({
-      type: UPDATE_TASKS_STATUS,
-      _id: task._id,
-      status: 'completed',
-    });
+    dispatch(markTaskComplete(task._id));
     idbPromise('tasks', 'put', {
       ...task,
       status: 'completed',
@@ -23,11 +16,7 @@ const Task = ({ task }) => {
   };
 
   const removeFromTasks = () => {
-    dispatch({
-      type: REMOVE_FROM_TASKS,
-      _id: task._id,
-    });
-    idbPromise('tasks', 'delete', { ...task });
+    dispatch(removeTask(task._id));
   };
 
   return (
@@ -48,6 +37,6 @@ const Task = ({ task }) => {
       </div>
     </div>
   );
-}
+};
 
 export default Task;

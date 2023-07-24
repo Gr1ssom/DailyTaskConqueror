@@ -20,6 +20,8 @@ import Signup from './pages/Signup';
 import Nav from './components/Nav/index';
 import LandingPage from './pages/LandingPage';
 
+import './App.css';
+
 const httpLink = createHttpLink({
   uri: '/graphql',
 });

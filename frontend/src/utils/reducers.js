@@ -1,75 +1,16 @@
-import {
-  UPDATE_PROFILE,
-  ADD_TO_TASKS,
-  REMOVE_FROM_TASKS,
-  CLEAR_TASKS,
-  TOGGLE_TASKS,
-  UPDATE_TASKS_QUANTITY,
-  UPDATE_CATEGORIES,
-  UPDATE_CURRENT_CATEGORY,
-  MARK_TASK_COMPLETE   // 1. Import the new action type
-} from './actions';
+// src/utils/reducers.js
+
+// ... (existing imports)
+import { MARK_TASK_COMPLETE } from './actions'; // Add the new import
 
 const initialState = {
-  profiles: [],
-  categories: [],
-  currentCategory: '',
-  tasks: []
+  // ... (existing state properties)
 };
 
 const reducers = (state = initialState, action) => {
   switch (action.type) {
-    case UPDATE_PROFILE:
-      return {
-        ...state,
-        profiles: [...action.profiles],
-      };
-
-    case ADD_TO_TASKS:
-      return {
-        ...state,
-        tasks: [...state.tasks, action.profile],
-      };
-
-    case UPDATE_TASKS_QUANTITY:
-      return {
-        ...state,
-        tasks: state.tasks.map(task => {
-          if (action._id === task._id) {
-            task.purchaseQuantity = action.purchaseQuantity;
-          }
-          return task;
-        })
-      };
-
-    case REMOVE_FROM_TASKS:
-      return {
-        ...state,
-        tasks: state.tasks.filter(task => task._id !== action._id)
-      };
-
-    case TOGGLE_TASKS:
-      return state;   // If there's no specific behavior you want for this action, you can remove it.
-
-    case UPDATE_CATEGORIES:
-      return {
-        ...state,
-        categories: [...action.categories],
-      };
-
-    case UPDATE_CURRENT_CATEGORY:
-      return {
-        ...state,
-        currentCategory: action.currentCategory
-      };
-
-    case CLEAR_TASKS:
-      return {
-         ...state,
-         tasks: []
-       };
-        
-    case MARK_TASK_COMPLETE:  // 2. Handle the new action type
+    // ... (existing cases)
+    case MARK_TASK_COMPLETE:
       return {
         ...state,
         tasks: state.tasks.map(task => {
@@ -82,7 +23,6 @@ const reducers = (state = initialState, action) => {
           return task;
         })
       };
-
     default:
       return state;
   }

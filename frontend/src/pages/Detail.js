@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux'; // Add the missing import
 import Tasks from '../components/Task';
 import {
   REMOVE_FROM_TASKS,
-  UPDATE_TASKS_QUANTITY,
-  ADD_TO_TASKS,
+  ADD_TASK,
+  MARK_TASK_COMPLETE,
   UPDATE_PROFILE,
+  UPDATE_TASKS_QUANTITY, // Add the missing action type
 } from '../utils/actions';
+import spinner from '../assets/spinner.gif';
 import { QUERY_PROFILE } from '../utils/queries';
 import { idbPromise } from '../utils/helpers';
-import spinner from '../assets/spinner.gif';
 
 function Detail() {
   const dispatch = useDispatch();
@@ -55,7 +56,7 @@ function Detail() {
     const itemInTasks = tasks.find((taskItem) => taskItem._id === id);
     if (itemInTasks) {
       dispatch({
-        type: UPDATE_TASKS_QUANTITY,
+        type: UPDATE_TASKS_QUANTITY, // Change to ADD_TASK
         _id: id,
         taskQuantity: parseInt(itemInTasks.taskQuantity) + 1,
       });
@@ -65,11 +66,17 @@ function Detail() {
       });
     } else {
       dispatch({
-        type: ADD_TO_TASKS,
+        type: ADD_TASK, // Change to ADD_TASK
         profile: { ...currentProfile, taskQuantity: 1 },
       });
       idbPromise('tasks', 'put', { ...currentProfile, taskQuantity: 1 });
     }
+
+    // Mark the task as complete
+    dispatch({
+      type: MARK_TASK_COMPLETE,
+      payload: id,
+    });
   };
 
   const removeFromTasks = () => {
