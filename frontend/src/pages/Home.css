@@ -1,0 +1,64 @@
+.home-container {
+    text-align: center;
+    padding: 20px;
+    width: 80%;
+    margin: 0 auto;
+    border: 1px solid #5F9EA0; /* Thin border for the main container */
+}
+
+h1 {
+    color: #000000;
+    margin-bottom: 20px;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+
+.task-list-section,
+.task-creation-center {
+    border: 1px solid #5F9EA0; /* Thin border for each section */
+    padding: 20px;
+}
+
+.task-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.task-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0;
+    padding: 5px;
+    border: 1px solid #5F9EA0; /* Thin border for each task item */
+}
+
+.new-task-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #5F9EA0; /* Thin border for the input */
+}
+
+.add-task-button,
+.remove-task-button {
+    padding: 5px 15px;
+    background-color: #5F9EA0;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-task-button:hover,
+.remove-task-button:hover {
+    background-color: #4e8082; /* A slightly darker shade on hover */
+}

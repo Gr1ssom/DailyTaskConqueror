@@ -1,76 +1,74 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
-import Auth from '../utils/auth';
-import { ADD_PROFILE, ADD_USER } from '../utils/mutations';
+import { ADD_PROFILE } from '../utils/mutations';
 
-function Signup(props) {
-  const [formState, setFormState] = useState({ email: '', password: '' });
+const Signup = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+
   const [addProfile] = useMutation(ADD_PROFILE);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    const mutationResponse = await addProfile({
-      variables: {
-        email: formState.email,
-        password: formState.password,
-        name: formState.name,
-      },
-    });
-    const token = mutationResponse.data.addProfile.token;
-    Auth.login(token);
-  };
+    try {
+      const { data } = await addProfile({
+        variables: formData,
+      });
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormState({
-      ...formState,
-      [name]: value,
-    });
+      // If the mutation is successful, you can access the token and profile data
+      const { token, profile } = data.addProfile;
+      console.log('Token:', token);
+      console.log('Profile ID:', profile._id);
+
+      // You can also save the token to local storage or a state management system for user authentication.
+    } catch (error) {
+      console.error('Error creating profile:', error.message);
+    }
   };
 
   return (
-    <div className="container my-1">
-      <Link to="/login">← Go to Login</Link>
-
-      <h2>Signup</h2>
-      <form onSubmit={handleFormSubmit}>
-        <div className="flex-row space-between my-2">
-          <label htmlFor="firstName">Name:</label>
-          <input
-            placeholder="name"
-            name="firstname"
-            type="firstName"
-            id="firstName"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="flex-row space-between my-2">
-          <label htmlFor="email">Email:</label>
-          <input
-            placeholder="youremail@test.com"
-            name="email"
-            type="email"
-            id="email"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="flex-row space-between my-2">
-          <label htmlFor="pwd">Password:</label>
-          <input
-            placeholder="******"
-            name="password"
-            type="password"
-            id="pwd"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="flex-row flex-end">
-          <button type="submit">Submit</button>
-        </div>
-      </form>
-    </div>
+    <form onSubmit={handleFormSubmit}>
+      <div>
+        <label htmlFor="name">Name:</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value={formData.name}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div>
+        <label htmlFor="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={formData.email}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div>
+        <label htmlFor="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          value={formData.password}
+          onChange={handleInputChange}
+        />
+      </div>
+      <button type="submit">Sign Up</button>
+    </form>
   );
-}
+};
 
 export default Signup;
