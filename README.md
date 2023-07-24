@@ -27,9 +27,11 @@ Pull down the repo from https://github.com/Gr1ssom/DailyTaskConqueror/
 3. To start the servers, run `npm run start:dev`
 4. Go to the browser that opens and use the app.
 
-
 ## Contributing
 Fork the repository, make your changes, and submit a pull request.
+
+## Heroku Deployment
+https://daily-task-conqueror-dc09a79947f5.herokuapp.com/
 
 ## License
 Checkout [MIT License](https://mit-license.org/) for this project's license information.
