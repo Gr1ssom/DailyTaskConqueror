@@ -1,4 +1,6 @@
 const { Task } = require('../models/Task');
+const { Profile } = require('../models/Profile');  // Assuming you have a Profile model for user data.
+const { signToken } = require('../utils/auth');  // Assuming you have a signToken utility.
 
 const resolvers = {
   Query: {
@@ -21,6 +23,7 @@ const resolvers = {
       }
     },
   },
+
   Mutation: {
     createTask: async (_, { title, description, dueDate, completed }) => {
       try {
@@ -53,6 +56,42 @@ const resolvers = {
         return null;
       }
     },
+
+    // User Login
+    login: async (_, { email, password }) => {
+      try {
+        const profile = await Profile.findOne({ email });
+        if (!profile) {
+          throw new Error('No profile found with this email address');
+        }
+
+        const isValidPassword = await profile.isCorrectPassword(password);
+        if (!isValidPassword) {
+          throw new Error('Incorrect password');
+        }
+
+        const token = signToken(profile);
+        return { token, profile };
+
+      } catch (err) {
+        console.error('Error logging in:', err);
+        return null;
+      }
+    },
+
+    // User Registration
+    addProfile: async (_, { name, email, password }) => {
+      try {
+        const profile = await Profile.create({ name, email, password });
+        const token = signToken(profile);
+
+        return { token, profile };
+
+      } catch (err) {
+        console.error('Error creating profile:', err);
+        return null;
+      }
+    }
   },
 };
 

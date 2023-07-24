@@ -22,6 +22,11 @@ const typeDefs = gql`
     tasks: String
   }
 
+  type Auth {
+    token: String
+    profile: Profile
+  }
+
   type Query {
     tasks: [Tasks]
     task: [Task]
@@ -32,6 +37,8 @@ const typeDefs = gql`
     createTask(name: String!, content: String!): Task
     updateTask(_id: ID!, name: String, content: String): Task
     deleteTask(_id: ID!): Task
+    addProfile(name: String!, email: String!, password: String!): Auth
+    login(email: String!, password: String!): Auth
   }
 `;
 

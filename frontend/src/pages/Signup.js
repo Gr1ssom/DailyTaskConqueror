@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
-import { ADD_PROFILE, ADD_USER } from '../utils/mutations';
+import { ADD_PROFILE } from '../utils/mutations';
 
 function Signup(props) {
-  const [formState, setFormState] = useState({ email: '', password: '' });
+  const [formState, setFormState] = useState({ email: '', password: '', name: '' });
   const [addProfile] = useMutation(ADD_PROFILE);
 
   const handleFormSubmit = async (event) => {
@@ -32,15 +32,14 @@ function Signup(props) {
   return (
     <div className="container my-1">
       <Link to="/login">← Go to Login</Link>
-
       <h2>Signup</h2>
       <form onSubmit={handleFormSubmit}>
         <div className="flex-row space-between my-2">
           <label htmlFor="firstName">Name:</label>
           <input
             placeholder="name"
-            name="firstname"
-            type="firstName"
+            name="name"
+            type="text"
             id="firstName"
             onChange={handleChange}
           />
